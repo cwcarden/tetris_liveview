@@ -4,7 +4,7 @@ defmodule Tetris.Brick do
             rotation: 0,
             reflection: false
 
-  def new(), do: __struct__()
+  def new(attributes \\ []), do: __struct__(attributes)
 
   def new_random() do
     %__MODULE__{
@@ -16,13 +16,14 @@ defmodule Tetris.Brick do
   end
 
   def random_name() do
-    ~w(i l z o t)a  #Sigil turns each item in the array into an atom.
+    # Sigil turns each item in the array into an atom.
+    ~w(i l z o t)a
     |> Enum.random()
   end
 
   def random_rotation() do
     [0, 90, 180, 270]
-    |> Enum.random
+    |> Enum.random()
   end
 
   def random_reflection() do
@@ -31,15 +32,15 @@ defmodule Tetris.Brick do
   end
 
   def left(brick) do
-    %{brick| location: point_left(brick.location)}
+    %{brick | location: point_left(brick.location)}
   end
 
   def right(brick) do
-    %{brick| location: point_right(brick.location)}
+    %{brick | location: point_right(brick.location)}
   end
 
- def down(brick) do
-    %{brick| location: point_down(brick.location)}
+  def down(brick) do
+    %{brick | location: point_down(brick.location)}
   end
 
   def point_down({x, y}) do
@@ -55,11 +56,51 @@ defmodule Tetris.Brick do
   end
 
   def spin_90(brick) do
-    %{brick| rotation: rotate(brick.rotation)}
+    %{brick | rotation: rotate(brick.rotation)}
   end
 
   def rotate(270), do: 0
-    def rotate(degrees), do: degrees + 90
+  def rotate(degrees), do: degrees + 90
+
+  def shape(%{name: :l}) do
+    [
+      {2, 1},
+      {2, 2},
+      {2, 3}, {3, 3}
+    ]
+  end
+
+  def points(%{name: :i}) do
+    [
+      {2, 1},
+      {2, 2},
+      {2, 3},
+      {2, 4}
+    ]
+  end
+
+  def points(%{name: :o}) do
+  [
+    {2, 2}, {3, 2},
+    {2, 3}, {3, 3}
+  ]
+  end
+
+  def points(%{name: :z}) do
+    [
+      {2, 2},
+      {2, 3}, {3, 3},
+              {3, 4}
+    ]
+  end
+
+  def points(%{name: :t}) do
+    [
+      {2, 1},
+      {2, 2}, {3, 2}, 
+      {2, 3}
+    ]
+  end
 
 
 end

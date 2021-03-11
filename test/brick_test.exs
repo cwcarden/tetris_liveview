@@ -16,18 +16,27 @@ defmodule BrickTest do
   end
 
   test "should manipulate brick" do
-    actual = 
+    actual =
       new_brick()
       |> left
       |> right
-      |> right 
-      |> down 
-      |> spin_90 
+      |> right
+      |> down
+      |> spin_90
       |> spin_90
 
-      assert actual.location == {41, 1}
-      assert actual.rotation ==  180
+    assert actual.location == {41, 1}
+    assert actual.rotation == 180
   end
 
-  def new_brick, do: new()
+  test "should return points for i shape" do
+    points = 
+    new_brick(name: :i) 
+    |> points()
+
+    assert {2, 2 } in points
+    
+  end
+
+  def new_brick(attributes \\ []), do: new(attributes)
 end
